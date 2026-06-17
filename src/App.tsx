@@ -23,6 +23,7 @@ import {
   CheckCircle,
   BadgeCheck,
   Layers,
+  Star,
 } from 'lucide-react';
 import sujithPortrait from './images/sujith.jpg';
 
@@ -125,7 +126,7 @@ function GoldRule({ className = '' }: { className?: string }) {
 /* ════════════════════════════════════════════
    Section heading
    ════════════════════════════════════════════ */
-function SectionHeading({ tag, title, subtitle }: { tag: string; title: string; subtitle?: string }) {
+function SectionHeading({ tag, title, subtitle, light = false }: { tag: string; title: string; subtitle?: string; light?: boolean }) {
   return (
     <Reveal className="text-center mb-16 md:mb-20">
       <span className="eyebrow gold-shine">
@@ -133,11 +134,11 @@ function SectionHeading({ tag, title, subtitle }: { tag: string; title: string; 
         {tag}
         <span className="w-6 h-px bg-accent-400/60" />
       </span>
-      <h2 className="mt-5 font-heading text-4xl md:text-5xl lg:text-[3.5rem] font-semibold text-ink-900 leading-[1.08] tracking-tightest">
+      <h2 className={`mt-5 font-heading text-4xl md:text-5xl lg:text-[3.5rem] font-semibold leading-[1.08] tracking-tightest ${light ? 'text-white' : 'text-ink-900'}`}>
         {title}
       </h2>
       <GoldRule className="mt-6" />
-      {subtitle && <p className="mt-7 text-lg text-ink-500 max-w-2xl mx-auto leading-relaxed">{subtitle}</p>}
+      {subtitle && <p className={`mt-7 text-lg max-w-2xl mx-auto leading-relaxed ${light ? 'text-white/60' : 'text-ink-500'}`}>{subtitle}</p>}
     </Reveal>
   );
 }
@@ -232,7 +233,7 @@ function Navbar() {
             href="#contact"
             className="btn-shine ml-4 px-6 py-2.5 bg-primary-700 text-white text-sm font-semibold rounded-xl ring-1 ring-inset ring-accent-300/30 hover:bg-primary-800 hover:shadow-glow-sm transition-all duration-300"
           >
-            Book Consultation
+            Get in Touch
           </a>
         </div>
 
@@ -263,7 +264,7 @@ function Navbar() {
             onClick={() => setMobileOpen(false)}
             className="block mt-2 px-4 py-3 bg-primary-700 text-white text-center rounded-xl font-semibold"
           >
-            Book Consultation
+            Get in Touch
           </a>
         </div>
       </div>
@@ -351,7 +352,7 @@ function Hero() {
                   href="#contact"
                   className="btn-shine group px-8 py-4 bg-white text-primary-900 rounded-2xl font-semibold ring-1 ring-accent-300/30 hover:shadow-glow transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  Book Consultation
+                  Get in Touch
                   <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                 </a>
                 <a
@@ -420,7 +421,7 @@ function Hero() {
             { k: 'Approach', v: 'Evidence-Based Care' },
           ].map((s, i) => (
             <div key={s.k} className={`px-3 ${i < 3 ? 'md:border-r md:border-white/10' : ''}`}>
-              <p className="text-[10px] font-semibold tracking-[0.2em] uppercase text-accent-300/70">{s.k}</p>
+              <p className={`flow-text flow-${i + 1} text-[10px] font-semibold tracking-[0.2em] uppercase`}>{s.k}</p>
               <p className="mt-1 text-sm text-white/80 font-medium">{s.v}</p>
             </div>
           ))}
@@ -755,6 +756,74 @@ function Experience() {
   );
 }
 
+/* ════════════════════════════════════════════
+   Testimonials
+   NOTE: Placeholder reviews — replace with genuine,
+   consented patient testimonials before publishing.
+   ════════════════════════════════════════════ */
+const testimonials = [
+  {
+    quote: 'Dr. Sujith took the time to explain my diabetes management in a way I could finally understand. Patient, thorough, and genuinely caring.',
+    name: 'R. Menon',
+    context: 'Diabetes Care',
+  },
+  {
+    quote: 'A calm, reassuring approach and an accurate diagnosis. I never felt rushed during my consultation and every question was answered.',
+    name: 'P. Sharma',
+    context: 'Internal Medicine',
+  },
+  {
+    quote: 'Knowledgeable and compassionate. He follows up personally and makes you feel genuinely heard and cared for.',
+    name: 'A. Nair',
+    context: 'Hypertension',
+  },
+];
+
+function Testimonials() {
+  return (
+    <section id="testimonials" className="section-padding relative overflow-hidden grain bg-gradient-to-br from-primary-950 to-primary-900">
+      <div className="absolute inset-0 opacity-[0.06] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+      <div className="absolute -top-24 -right-24 w-80 h-80 bg-accent-400/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative max-w-6xl mx-auto">
+        <SectionHeading
+          tag="Testimonials"
+          title="In Their Words"
+          subtitle="What patients say about their care and experience."
+          light
+        />
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {testimonials.map((t, i) => (
+            <Reveal key={t.name} delay={i * 0.12} direction="up">
+              <div className="group h-full flex flex-col bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl p-7 hover:border-accent-300/30 transition-colors duration-300">
+                <Quote className="w-9 h-9 text-accent-300/80" />
+                <div className="mt-4 flex gap-1">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <Star key={s} className="w-4 h-4 text-accent-400 fill-accent-400" />
+                  ))}
+                </div>
+                <p className="mt-5 text-white/75 leading-relaxed flex-1">“{t.quote}”</p>
+                <div className="mt-6 pt-5 border-t border-white/10 flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-primary-600 to-primary-800 ring-1 ring-accent-300/25 flex items-center justify-center text-accent-100 font-heading font-semibold">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-white text-sm">{t.name}</p>
+                    <p className="text-xs text-accent-200/70">{t.context}</p>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <p className="mt-12 text-center text-xs text-white/40">Reviews are shared with patient consent.</p>
+      </div>
+    </section>
+  );
+}
+
 /* ── Floating-label field (Google / Material style) ── */
 function FloatingField({
   label, type = 'text', required = false, multiline = false,
@@ -795,7 +864,7 @@ function Contact() {
         <SectionHeading
           tag="Contact"
           title="Get in Touch"
-          subtitle="Ready to schedule a consultation? Reach out to book an appointment with Dr. Sujith."
+          subtitle="Have a question or would like to connect? Send a message and Dr. Sujith will get back to you."
         />
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -826,27 +895,27 @@ function Contact() {
             })}
           </div>
 
-          {/* Appointment form */}
+          {/* Message / connect form */}
           <Reveal direction="right" delay={0.2}>
             <div className="border-beam relative bg-white rounded-3xl p-8 border border-ink-100 shadow-glass-lg">
-              <h3 className="text-xl font-heading font-semibold text-ink-900 mb-1">Request an Appointment</h3>
-              <p className="text-sm text-ink-400 mb-7">We typically respond within one business day.</p>
+              <h3 className="text-xl font-heading font-semibold text-ink-900 mb-1">Send a Message</h3>
+              <p className="text-sm text-ink-400 mb-7">Have a question or would like to connect? I’ll get back to you.</p>
               <form
                 className="space-y-6"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  alert('Thank you! Your appointment request has been noted. Dr. Sujith’s team will contact you shortly.');
+                  alert('Thank you for reaching out! Dr. Sujith will get back to you shortly.');
                 }}
               >
                 <FloatingField label="Full Name" type="text" required />
-                <FloatingField label="Phone Number" type="tel" required />
-                <FloatingField label="Preferred Date" type="date" required />
-                <FloatingField label="Message (optional)" multiline />
+                <FloatingField label="Email Address" type="email" required />
+                <FloatingField label="Phone (optional)" type="tel" />
+                <FloatingField label="Message" multiline required />
                 <button
                   type="submit"
                   className="btn-shine w-full py-4 bg-primary-800 text-white font-semibold rounded-xl ring-1 ring-inset ring-accent-300/30 hover:bg-primary-900 hover:shadow-glow transition-all duration-300 hover:-translate-y-0.5 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                 >
-                  Request Appointment
+                  Send Message
                 </button>
               </form>
             </div>
@@ -884,7 +953,7 @@ function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-5 text-xs tracking-[0.18em] uppercase">Quick Links</h4>
             <div className="space-y-3">
-              {['About', 'Expertise', 'Education', 'Experience', 'Contact'].map((l) => (
+              {['About', 'Expertise', 'Education', 'Experience', 'Testimonials', 'Contact'].map((l) => (
                 <a key={l} href={`#${l.toLowerCase()}`} className="block text-sm hover:text-accent-300 transition-colors duration-300 link-underline w-fit">
                   {l}
                 </a>
@@ -956,6 +1025,7 @@ function App() {
       <Expertise />
       <Education />
       <Experience />
+      <Testimonials />
       <Contact />
       <Footer />
       <ScrollToTop />

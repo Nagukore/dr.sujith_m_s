@@ -208,6 +208,35 @@
   to { background-position: -200% center; }
 }
 
+/* ── Flowing multi-color animated text (hero credential labels) ── */
+.flow-text {
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: flow-shine 4.5s linear infinite;
+}
+@keyframes flow-shine {
+  to { background-position: 200% center; }
+}
+.flow-1 { /* teal → aqua */
+  background-image: linear-gradient(100deg, #2bc9a6, #5ce3c2, #22d3ee, #5ce3c2, #2bc9a6);
+  animation-duration: 4.5s;
+}
+.flow-2 { /* champagne gold */
+  background-image: linear-gradient(100deg, #d3a653, #f6e7bd, #fffaf0, #f6e7bd, #d3a653);
+  animation-duration: 5.2s;
+}
+.flow-3 { /* emerald → mint */
+  background-image: linear-gradient(100deg, #13ad8c, #84cc16, #5ce3c2, #84cc16, #13ad8c);
+  animation-duration: 4s;
+}
+.flow-4 { /* sky → periwinkle */
+  background-image: linear-gradient(100deg, #38bdf8, #818cf8, #22d3ee, #818cf8, #38bdf8);
+  animation-duration: 5.8s;
+}
+
 /* ── Animated gold hairline (a light glides along the line) ── */
 .gold-line {
   background: linear-gradient(
