@@ -126,6 +126,50 @@
 .stagger > *:nth-child(5) { animation-delay: 0.33s; }
 .stagger > *:nth-child(6) { animation-delay: 0.40s; }
 
+/* ── Premium button with shine sweep ── */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-shine::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: translateX(-160%) skewX(-18deg);
+  z-index: -1;
+  transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.btn-shine:hover::before {
+  transform: translateX(260%) skewX(-18deg);
+}
+
+/* ── Aurora mesh background for hero ── */
+.aurora span {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(120px);
+  opacity: 0.5;
+  will-change: transform;
+}
+
+/* ── Cursor spotlight follows mouse in hero ── */
+.spotlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 30%),
+    rgba(211,166,83,0.10),
+    transparent 60%
+  );
+  transition: background 0.2s ease-out;
+}
+
 /* ── Gradient / accent text ── */
 .gradient-text {
   background: linear-gradient(120deg, #5ce3c2 0%, #2bc9a6 50%, #13ad8c 100%);
