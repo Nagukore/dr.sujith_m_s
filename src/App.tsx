@@ -198,7 +198,7 @@ function Navbar() {
   const links = navLinks;
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-ink-50/85 backdrop-blur-2xl shadow-glass border-b border-ink-200/60' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? 'bg-ink-50/65 backdrop-blur-xl shadow-glass border-b border-ink-200/50' : 'bg-transparent'}`}>
       <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
         <a href="#hero" className="flex items-center gap-3 group">
           <Monogram scrolled={scrolled} />
