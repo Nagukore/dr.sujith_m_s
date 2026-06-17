@@ -290,7 +290,7 @@ function Hero() {
   const credentials = ['MBBS', 'DNB (Internal Medicine)', 'PGDCED'];
 
   return (
-    <section id="hero" onMouseMove={onMove} className="grain relative min-h-screen flex items-center overflow-hidden">
+    <section id="hero" onMouseMove={onMove} className="grain relative min-h-screen flex flex-col overflow-hidden">
       {/* Background layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary-950 via-primary-900 to-ink-950" />
       <div className="aurora absolute inset-0 opacity-[0.09]">
@@ -306,8 +306,9 @@ function Hero() {
       {/* Vignette */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgba(6,42,38,0.55)_100%)]" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 py-32 w-full">
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+      <div className="relative z-10 flex-1 flex items-center w-full">
+        <div className="max-w-6xl mx-auto px-6 py-28 lg:py-32 w-full">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left: Text */}
           <div className="space-y-7">
             <div className={`transition-all duration-700 ${loaded ? 'anim-fade-up' : 'opacity-0'}`}>
@@ -405,11 +406,12 @@ function Hero() {
               </div>
             </div>
           </div>
+          </div>
         </div>
       </div>
 
       {/* Bottom credential strip */}
-      <div className={`absolute bottom-0 left-0 right-0 border-t border-white/10 bg-white/[0.02] backdrop-blur-sm transition-all duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`relative z-10 border-t border-white/10 bg-white/[0.02] backdrop-blur-sm transition-all duration-700 ${loaded ? 'opacity-100' : 'opacity-0'}`}>
         <div className="max-w-6xl mx-auto px-6 py-4 grid grid-cols-2 md:grid-cols-4 gap-y-3 text-center">
           {[
             { k: 'Specialty', v: 'Internal Medicine' },
@@ -426,7 +428,7 @@ function Hero() {
       </div>
 
       {/* Scroll indicator */}
-      <a href="#about" className="absolute bottom-24 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors duration-300">
+      <a href="#about" className="absolute bottom-32 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 text-white/40 hover:text-white/70 transition-colors duration-300">
         <span className="text-[10px] tracking-[0.25em] uppercase font-medium">Scroll</span>
         <ChevronDown className="w-5 h-5 animate-bounce" />
       </a>
