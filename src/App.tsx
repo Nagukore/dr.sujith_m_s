@@ -116,7 +116,7 @@ function GoldRule({ className = '' }: { className?: string }) {
   return (
     <div className={`flex items-center justify-center gap-3 ${className}`}>
       <div className="w-10 gold-rule" />
-      <div className="w-1.5 h-1.5 rotate-45 bg-accent-400" />
+      <div className="gold-node w-1.5 h-1.5 rotate-45 bg-accent-400" />
       <div className="w-10 gold-rule" />
     </div>
   );
@@ -128,7 +128,7 @@ function GoldRule({ className = '' }: { className?: string }) {
 function SectionHeading({ tag, title, subtitle }: { tag: string; title: string; subtitle?: string }) {
   return (
     <Reveal className="text-center mb-16 md:mb-20">
-      <span className="eyebrow gold-text">
+      <span className="eyebrow gold-shine">
         <span className="w-6 h-px bg-accent-400/60" />
         {tag}
         <span className="w-6 h-px bg-accent-400/60" />
@@ -319,7 +319,7 @@ function Hero() {
             </div>
 
             <div className={`transition-all duration-700 ${loaded ? 'anim-fade-up delay-1' : 'opacity-0'}`}>
-              <p className="text-accent-200/70 font-heading italic text-xl mb-3">Compassionate medicine, delivered with precision.</p>
+              <p className="gold-shine font-heading italic text-xl mb-3">Compassionate medicine, delivered with precision.</p>
               <h1 className="font-heading text-5xl md:text-6xl lg:text-[4.7rem] font-semibold text-white leading-[1.02] tracking-tightest">
                 Dr. Sujith{' '}
                 <span className="gradient-text">M S</span>
@@ -368,7 +368,7 @@ function Hero() {
           <div className={`flex justify-center order-first lg:order-none mb-2 lg:mb-0 transition-all duration-700 ${loaded ? 'anim-scale-in delay-3' : 'opacity-0'}`}>
             <div className="relative anim-float">
               {/* Decorative gold frame offset */}
-              <div className="absolute -inset-3 rounded-[2.4rem] border border-accent-300/25" />
+              <div className="absolute -inset-3 rounded-[2.4rem] border border-accent-300/30 anim-pulse-soft" />
               <div className="absolute -inset-3 rounded-[2.4rem] bg-gradient-to-br from-accent-300/10 via-transparent to-primary-400/10 blur-sm" />
 
               {/* Portrait card */}
@@ -451,7 +451,7 @@ function Stats() {
     <section className="relative bg-ink-50 pt-16 md:pt-20 pb-4">
       <div className="max-w-6xl mx-auto px-6">
         <div className="relative bg-white rounded-3xl border border-ink-100 shadow-glass-lg overflow-hidden">
-          <div className="absolute top-0 left-12 right-12 h-px bg-gradient-to-r from-transparent via-accent-300 to-transparent" />
+          <div className="absolute top-0 left-12 right-12 h-px gold-line" />
           <div className="grid grid-cols-2 lg:grid-cols-4 divide-y divide-x divide-ink-100/80 [&>*]:border-ink-100/80">
             {stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.1} direction="up">
@@ -755,6 +755,36 @@ function Experience() {
   );
 }
 
+/* ── Floating-label field (Google / Material style) ── */
+function FloatingField({
+  label, type = 'text', required = false, multiline = false,
+}: { label: string; type?: string; required?: boolean; multiline?: boolean }) {
+  const isDate = type === 'date';
+  const inputCls =
+    'peer w-full px-4 py-3.5 bg-transparent border border-ink-200 rounded-xl text-ink-800 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/15 transition-all duration-200';
+
+  // Label rests inside the field when empty, floats to the top border on focus / when filled.
+  const rest = multiline
+    ? 'peer-placeholder-shown:top-4 peer-placeholder-shown:translate-y-0'
+    : 'peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2';
+  const labelCls =
+    'absolute left-3 px-1.5 font-medium pointer-events-none transition-all duration-200 ' +
+    'top-0 -translate-y-1/2 text-xs text-primary-600 bg-white ' +
+    (isDate ? '' : `${rest} peer-placeholder-shown:text-base peer-placeholder-shown:text-ink-400 peer-placeholder-shown:bg-transparent `) +
+    'peer-focus:top-0 peer-focus:-translate-y-1/2 peer-focus:text-xs peer-focus:text-primary-600 peer-focus:bg-white';
+
+  return (
+    <div className="relative">
+      {multiline ? (
+        <textarea required={required} placeholder=" " rows={3} className={`${inputCls} resize-none`} />
+      ) : (
+        <input type={type} required={required} placeholder=" " className={inputCls} />
+      )}
+      <label className={labelCls}>{label}</label>
+    </div>
+  );
+}
+
 /* ════════════════════════════════════════════
    Contact
    ════════════════════════════════════════════ */
@@ -798,51 +828,20 @@ function Contact() {
 
           {/* Appointment form */}
           <Reveal direction="right" delay={0.2}>
-            <div className="relative bg-white rounded-3xl p-8 border border-ink-100 shadow-glass-lg">
-              <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-accent-300 to-transparent" />
+            <div className="border-beam relative bg-white rounded-3xl p-8 border border-ink-100 shadow-glass-lg">
               <h3 className="text-xl font-heading font-semibold text-ink-900 mb-1">Request an Appointment</h3>
-              <p className="text-sm text-ink-400 mb-6">We typically respond within one business day.</p>
+              <p className="text-sm text-ink-400 mb-7">We typically respond within one business day.</p>
               <form
-                className="space-y-5"
+                className="space-y-6"
                 onSubmit={(e) => {
                   e.preventDefault();
                   alert('Thank you! Your appointment request has been noted. Dr. Sujith’s team will contact you shortly.');
                 }}
               >
-                <div>
-                  <label className="block text-sm font-medium text-ink-600 mb-1.5">Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    className="w-full px-4 py-3.5 bg-ink-50/70 border border-ink-200 rounded-xl text-ink-800 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400 focus:bg-white transition-all duration-300"
-                    placeholder="Enter your name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-ink-600 mb-1.5">Phone Number</label>
-                  <input
-                    type="tel"
-                    required
-                    className="w-full px-4 py-3.5 bg-ink-50/70 border border-ink-200 rounded-xl text-ink-800 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400 focus:bg-white transition-all duration-300"
-                    placeholder="Enter your phone number"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-ink-600 mb-1.5">Preferred Date</label>
-                  <input
-                    type="date"
-                    required
-                    className="w-full px-4 py-3.5 bg-ink-50/70 border border-ink-200 rounded-xl text-ink-800 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400 focus:bg-white transition-all duration-300"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-ink-600 mb-1.5">Message <span className="text-ink-400">(Optional)</span></label>
-                  <textarea
-                    rows={3}
-                    className="w-full px-4 py-3.5 bg-ink-50/70 border border-ink-200 rounded-xl text-ink-800 placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-400 focus:bg-white transition-all duration-300 resize-none"
-                    placeholder="Brief description of your concern"
-                  />
-                </div>
+                <FloatingField label="Full Name" type="text" required />
+                <FloatingField label="Phone Number" type="tel" required />
+                <FloatingField label="Preferred Date" type="date" required />
+                <FloatingField label="Message (optional)" multiline />
                 <button
                   type="submit"
                   className="btn-shine w-full py-4 bg-primary-800 text-white font-semibold rounded-xl ring-1 ring-inset ring-accent-300/30 hover:bg-primary-900 hover:shadow-glow transition-all duration-300 hover:-translate-y-0.5 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
@@ -865,7 +864,7 @@ function Footer() {
   return (
     <footer className="bg-ink-950 text-ink-400 relative overflow-hidden grain">
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.3) 1px, transparent 0)', backgroundSize: '26px 26px' }} />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-accent-400/40 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px gold-line" />
 
       <div className="relative max-w-6xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-3 gap-10 items-start">

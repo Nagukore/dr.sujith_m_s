@@ -190,6 +190,81 @@
   background: linear-gradient(90deg, transparent, rgba(211,166,83,0.5), transparent);
 }
 
+/* ── Animated gold shine (text) ── */
+.gold-shine {
+  background: linear-gradient(
+    100deg,
+    #a9762a 0%, #d3a653 20%, #f6e7bd 38%, #fffaf0 50%,
+    #f6e7bd 62%, #d3a653 80%, #a9762a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: gold-shine 5s linear infinite;
+}
+@keyframes gold-shine {
+  to { background-position: -200% center; }
+}
+
+/* ── Animated gold hairline (a light glides along the line) ── */
+.gold-line {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(211,166,83,0.15) 25%,
+    rgba(246,231,189,0.95) 50%,
+    rgba(211,166,83,0.15) 75%,
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: gold-line 5.5s linear infinite;
+}
+@keyframes gold-line {
+  to { background-position: -200% 0; }
+}
+
+/* ── Gold node soft glow pulse ── */
+.gold-node {
+  animation: gold-pulse 2.8s ease-in-out infinite;
+}
+@keyframes gold-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(211,166,83,0.0); }
+  50%      { box-shadow: 0 0 12px 1.5px rgba(211,166,83,0.55); }
+}
+
+/* ── Border beam: a light travels around the border ── */
+@property --beam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.border-beam::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg,
+    transparent 230deg,
+    rgba(211,166,83,0.55) 290deg,
+    rgba(255,250,240,1) 320deg,
+    rgba(45,201,166,0.55) 350deg,
+    transparent 360deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  animation: border-beam 4.5s linear infinite;
+}
+@keyframes border-beam {
+  to { --beam-angle: 360deg; }
+}
+
 /* ── Premium card border + sheen on hover ── */
 .card-premium {
   position: relative;
