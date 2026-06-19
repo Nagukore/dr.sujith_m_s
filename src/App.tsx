@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ReactNode, type MouseEvent as ReactMouseEvent } from 'react';
+import { useState, useEffect, useRef, type ReactNode, type MouseEvent as ReactMouseEvent, type CSSProperties } from 'react';
 import {
   Stethoscope,
   Award,
@@ -452,11 +452,13 @@ function Stats() {
     <section className="relative bg-ink-50 pt-16 md:pt-20 pb-4">
       <div className="max-w-6xl mx-auto px-6">
         <div className="relative bg-white rounded-3xl border border-ink-100 shadow-glass-lg overflow-hidden">
-          <div className="absolute top-0 left-12 right-12 h-px gold-line" />
-          <div className="grid grid-cols-2 lg:grid-cols-4 divide-y divide-x divide-ink-100/80 [&>*]:border-ink-100/80">
+          <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-y lg:divide-y-0 divide-ink-100/80">
             {stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.1} direction="up">
-                <div className="group flex flex-col items-center text-center px-6 py-9 hover:bg-ink-50/60 transition-colors duration-300">
+                <div
+                  className="border-beam group relative h-full flex flex-col items-center text-center bg-white px-6 py-9 hover:bg-ink-50/50 transition-colors duration-300"
+                  style={{ '--beam-dur': `${4 + i * 0.6}s`, '--beam-delay': `${i * 0.45}s` } as CSSProperties}
+                >
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-primary-700 to-primary-950 flex items-center justify-center mb-4 shadow-glow-sm group-hover:scale-105 transition-transform duration-300">
                     <s.icon className="w-6 h-6 text-accent-100" />
                   </div>

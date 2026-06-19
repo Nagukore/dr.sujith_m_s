@@ -288,7 +288,8 @@
   -webkit-mask-composite: xor;
           mask-composite: exclude;
   pointer-events: none;
-  animation: border-beam 4.5s linear infinite;
+  animation: border-beam var(--beam-dur, 4.5s) linear infinite;
+  animation-delay: var(--beam-delay, 0s);
 }
 @keyframes border-beam {
   to { --beam-angle: 360deg; }
