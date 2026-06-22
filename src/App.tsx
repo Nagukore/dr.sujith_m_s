@@ -4,7 +4,6 @@ import {
   Award,
   GraduationCap,
   Heart,
-  Phone,
   MapPin,
   Clock,
   ChevronDown,
@@ -24,6 +23,11 @@ import {
   BadgeCheck,
   Layers,
   Star,
+  Gauge,
+  HeartPulse,
+  Moon,
+  ClipboardCheck,
+  ArrowUpRight,
 } from 'lucide-react';
 import sujithPortrait from './images/sujith.jpg';
 
@@ -442,7 +446,7 @@ function Hero() {
    ════════════════════════════════════════════ */
 const stats = [
   { icon: GraduationCap, value: 3, suffix: '', label: 'Qualifications', sub: 'MBBS · DNB · PGDCED' },
-  { icon: Layers, value: 4, suffix: '', label: 'Areas of Expertise', sub: 'Specialised care' },
+  { icon: Layers, value: 8, suffix: '', label: 'Areas of Expertise', sub: 'Specialised care' },
   { icon: Building2, value: 3, suffix: '', label: 'Practice Locations', sub: 'Across Bangalore' },
   { icon: BadgeCheck, value: null as number | null, suffix: '', label: 'KMC Verified', sub: 'Reg. No. 105870' },
 ];
@@ -584,6 +588,26 @@ const specialties = [
     title: 'Respiratory Conditions',
     desc: 'Specialized care for asthma, COPD, and pulmonary infections with an advanced, methodical diagnostic approach.',
   },
+  {
+    icon: Gauge,
+    title: 'Thyroid Disease',
+    desc: 'Diagnosis and management of thyroid disorders including hypothyroidism and hyperthyroidism, with tailored treatment and monitoring.',
+  },
+  {
+    icon: HeartPulse,
+    title: 'Cholesterol Disorders',
+    desc: 'Management of lipid disorders and high cholesterol to reduce cardiovascular risk through lifestyle guidance and medication.',
+  },
+  {
+    icon: Moon,
+    title: 'Sleep Disorders',
+    desc: 'Evaluation and treatment of sleep-related conditions such as insomnia and disturbed sleep for better rest and overall health.',
+  },
+  {
+    icon: ClipboardCheck,
+    title: 'Health Check-ups',
+    desc: 'Comprehensive preventive health check-ups and screenings for early detection and proactive management of your wellbeing.',
+  },
 ];
 
 function Expertise() {
@@ -691,9 +715,9 @@ function Education() {
    Experience — practice locations
    ════════════════════════════════════════════ */
 const practices = [
-  { name: 'Narayana Health', location: 'Bangalore' },
-  { name: 'Clinique HealthTree', location: 'Bangalore' },
-  { name: 'SS Clinic', location: 'Bangalore' },
+  { name: 'Narayana Health', location: 'Bangalore', url: 'https://www.narayanahealth.org/c/bangalore/covid-19-general-medicine/dr-sujith-m-s' },
+  { name: 'Clinique HealthTree', location: 'Bangalore', url: 'https://www.cliniquehealthtree.com/' },
+  { name: 'SS Clinic', location: 'Bangalore', url: 'https://www.ssclinickudlu.com/' },
 ];
 
 function Experience() {
@@ -712,9 +736,9 @@ function Experience() {
         <div className="grid md:grid-cols-3 gap-6 mb-10">
           {practices.map((p, i) => (
             <Reveal key={p.name} delay={i * 0.1} direction="up">
-              <div className="group card-premium relative h-full bg-gradient-to-br from-primary-950 to-primary-900 rounded-2xl p-7 shadow-lift overflow-hidden grain hover-lift">
+              <div className="group card-premium relative h-full flex flex-col bg-gradient-to-br from-primary-950 to-primary-900 rounded-2xl p-7 shadow-lift overflow-hidden grain hover-lift">
                 <div className="absolute -top-16 -right-16 w-40 h-40 bg-accent-400/10 rounded-full blur-2xl" />
-                <div className="relative">
+                <div className="relative flex-1 flex flex-col">
                   <div className="w-12 h-12 rounded-xl bg-white/[0.06] border border-accent-300/20 flex items-center justify-center mb-5 group-hover:border-accent-300/40 transition-colors duration-300">
                     <Building2 className="w-6 h-6 text-accent-200" />
                   </div>
@@ -727,6 +751,15 @@ function Experience() {
                     <Clock className="w-3.5 h-3.5" />
                     By Appointment
                   </div>
+                  <a
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-shine mt-7 inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-white/[0.06] border border-accent-300/25 text-accent-100 text-sm font-semibold hover:bg-white hover:text-primary-900 hover:border-white transition-all duration-300"
+                  >
+                    Book Appointment
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
                 </div>
               </div>
             </Reveal>
@@ -873,8 +906,7 @@ function Contact() {
           {/* Info cards */}
           <div className="space-y-5">
             {[
-              { icon: Phone, title: 'Phone', detail: '+91 97383 49897', href: 'tel:+919738349897' },
-              { icon: Mail, title: 'Email', detail: 'sujith.suhas@gmail.com', href: 'mailto:sujith.suhas@gmail.com' },
+              { icon: Mail, title: 'Email', detail: 'dr.ms.sujith@gmail.com', href: 'mailto:dr.ms.sujith@gmail.com' },
               { icon: MapPin, title: 'Practice Locations', detail: 'Narayana Health · Clinique HealthTree · SS Clinic\nBangalore' },
               { icon: Clock, title: 'Working Hours', detail: 'Monday – Saturday\nBy Appointment' },
             ].map((c, i) => {
@@ -966,11 +998,8 @@ function Footer() {
           <div>
             <h4 className="text-white font-semibold mb-5 text-xs tracking-[0.18em] uppercase">Get in Touch</h4>
             <div className="space-y-2.5 text-sm text-ink-400">
-              <a href="tel:+919738349897" className="flex items-center gap-2.5 hover:text-accent-300 transition-colors duration-300">
-                <Phone className="w-4 h-4 text-accent-400/80" /> +91 97383 49897
-              </a>
-              <a href="mailto:sujith.suhas@gmail.com" className="flex items-center gap-2.5 hover:text-accent-300 transition-colors duration-300">
-                <Mail className="w-4 h-4 text-accent-400/80" /> sujith.suhas@gmail.com
+              <a href="mailto:dr.ms.sujith@gmail.com" className="flex items-center gap-2.5 hover:text-accent-300 transition-colors duration-300">
+                <Mail className="w-4 h-4 text-accent-400/80" /> dr.ms.sujith@gmail.com
               </a>
               <p className="flex items-start gap-2.5 pt-1">
                 <MapPin className="w-4 h-4 text-accent-400/80 mt-0.5 shrink-0" /> Multiple clinics across Bangalore
