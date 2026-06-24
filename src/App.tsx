@@ -186,7 +186,7 @@ function Navbar() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
-  // Scrollspy — highlight the section currently in view
+  // Scrollspy -highlight the section currently in view
   useEffect(() => {
     const ids = navLinks.map((l) => l.href.slice(1));
     const obs = new IntersectionObserver(
@@ -346,7 +346,7 @@ function Hero() {
 
             <div className={`transition-all duration-700 ${loaded ? 'anim-fade-up delay-3' : 'opacity-0'}`}>
               <p className="text-white/60 text-lg leading-relaxed max-w-xl">
-                Known for his patience, diagnostic excellence, and empathetic approach — building trust and comfort through compassionate communication.
+                Known for his patience, diagnostic excellence, and empathetic approach -building trust and comfort through compassionate communication.
               </p>
             </div>
 
@@ -392,7 +392,7 @@ function Hero() {
                   <p className="text-accent-200/90 text-xs sm:text-sm font-medium tracking-wide">Consultant Physician &amp; Diabetologist</p>
                 </div>
               </div>
-              {/* Floating badges — hidden on the narrowest screens to avoid clipping */}
+              {/* Floating badges -hidden on the narrowest screens to avoid clipping */}
               <div className="hidden sm:block absolute -bottom-5 -right-5 px-6 py-3.5 glass rounded-2xl shadow-glass-lg">
                 <div className="flex items-center gap-2.5">
                   <div className="w-8 h-8 rounded-lg bg-primary-100 flex items-center justify-center">
@@ -506,7 +506,7 @@ function About() {
               <div className="flex gap-4">
                 <Quote className="w-9 h-9 text-accent-300 shrink-0 -mt-1" />
                 <p className="text-xl text-ink-700 leading-[1.7] font-heading italic">
-                  Going beyond conventional treatment — building trust and comfort through compassionate communication.
+                  Going beyond conventional treatment -building trust and comfort through compassionate communication.
                 </p>
               </div>
             </Reveal>
@@ -518,7 +518,7 @@ function About() {
             </Reveal>
             <Reveal direction="left" delay={0.1}>
               <p className="text-lg text-ink-600 leading-[1.85]">
-                Currently, he consults across multiple trusted clinics and hospitals in Bangalore — including Narayana Health, Clinique HealthTree, and SS Clinic. With a strong foundation in Internal Medicine, Dr. Sujith specializes in the management of Diabetes, Hypertension, Infectious Diseases, and Respiratory Conditions.
+                Currently, he consults across multiple trusted clinics and hospitals in Bangalore -including Narayana Health, Clinique HealthTree, and SS Clinic. With a strong foundation in Internal Medicine, Dr. Sujith specializes in the management of Diabetes, Hypertension, Infectious Diseases, and Respiratory Conditions.
               </p>
             </Reveal>
 
@@ -620,7 +620,7 @@ function Expertise() {
         <SectionHeading
           tag="Specializations"
           title="Areas of Expertise"
-          subtitle="Specialized care across multiple medical disciplines — always with a patient-first approach."
+          subtitle="Specialized care across multiple medical disciplines -always with a patient-first approach."
         />
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -669,7 +669,7 @@ const educationData = [
   },
   {
     degree: 'MBBS',
-    institution: 'Bachelor of Medicine & Bachelor of Surgery — Shimoga Institute of Medical Science and Research Centre',
+    institution: 'Bachelor of Medicine & Bachelor of Surgery -Shimoga Institute of Medical Science and Research Centre',
     icon: GraduationCap,
   },
 ];
@@ -712,7 +712,7 @@ function Education() {
 }
 
 /* ════════════════════════════════════════════
-   Experience — practice locations
+   Experience -practice locations
    ════════════════════════════════════════════ */
 const practices = [
   { name: 'Narayana Health', location: 'Bangalore', url: 'https://www.narayanahealth.org/c/bangalore/covid-19-general-medicine/dr-sujith-m-s' },
@@ -729,7 +729,7 @@ function Experience() {
         <SectionHeading
           tag="Experience"
           title="Where I Practice"
-          subtitle="Dr. Sujith consults across multiple trusted clinics and hospitals in Bangalore — available by appointment."
+          subtitle="Dr. Sujith consults across multiple trusted clinics and hospitals in Bangalore -available by appointment."
         />
 
         {/* Practice location cards */}
@@ -793,7 +793,7 @@ function Experience() {
 
 /* ════════════════════════════════════════════
    Testimonials
-   NOTE: Placeholder reviews — replace with genuine,
+   NOTE: Placeholder reviews -replace with genuine,
    consented patient testimonials before publishing.
    ════════════════════════════════════════════ */
 const testimonials = [

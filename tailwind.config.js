@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Deep, refined teal — the clinical anchor
+        // Deep, refined teal -the clinical anchor
         primary: {
           50: '#f0fdf9',
           100: '#cbfaec',
@@ -18,7 +18,7 @@ export default {
           900: '#0f483f',
           950: '#062a26',
         },
-        // Champagne gold — the premium accent, used sparingly
+        // Champagne gold -the premium accent, used sparingly
         accent: {
           50: '#fbf8f1',
           100: '#f5edd8',
