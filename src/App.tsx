@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, type ReactNode, type MouseEvent as ReactMouseEvent, type CSSProperties } from 'react';
+import { useState, useEffect, useRef, type ReactNode, type MouseEvent as ReactMouseEvent, type CSSProperties, type FormEvent } from 'react';
+import emailjs from '@emailjs/browser';
 import {
   Stethoscope,
   Award,
@@ -861,8 +862,8 @@ function Testimonials() {
 
 /* ── Floating-label field (Google / Material style) ── */
 function FloatingField({
-  label, type = 'text', required = false, multiline = false,
-}: { label: string; type?: string; required?: boolean; multiline?: boolean }) {
+  label, name, type = 'text', required = false, multiline = false,
+}: { label: string; name: string; type?: string; required?: boolean; multiline?: boolean }) {
   const isDate = type === 'date';
   const inputCls =
     'peer w-full px-4 py-3.5 bg-transparent border border-ink-200 rounded-xl text-ink-800 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/15 transition-all duration-200';
@@ -880,11 +881,93 @@ function FloatingField({
   return (
     <div className="relative">
       {multiline ? (
-        <textarea required={required} placeholder=" " rows={3} className={`${inputCls} resize-none`} />
+        <textarea name={name} required={required} placeholder=" " rows={3} className={`${inputCls} resize-none`} />
       ) : (
-        <input type={type} required={required} placeholder=" " className={inputCls} />
+        <input name={name} type={type} required={required} placeholder=" " className={inputCls} />
       )}
       <label className={labelCls}>{label}</label>
+    </div>
+  );
+}
+
+/* ── Contact form wired to EmailJS ── */
+type SendStatus = 'idle' | 'sending' | 'success' | 'error';
+
+function ContactForm() {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<SendStatus>('idle');
+
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (status === 'sending') return;
+
+    if (!serviceId || !templateId || !publicKey || !formRef.current) {
+      console.error('EmailJS is not configured. Set VITE_EMAILJS_* in your .env file.');
+      setStatus('error');
+      return;
+    }
+
+    setStatus('sending');
+    try {
+      await emailjs.sendForm(serviceId, templateId, formRef.current, { publicKey });
+      setStatus('success');
+      formRef.current.reset();
+    } catch (err) {
+      console.error('EmailJS send failed:', err);
+      setStatus('error');
+    }
+  };
+
+  return (
+    <div className="border-beam relative bg-white rounded-3xl p-8 border border-ink-100 shadow-glass-lg">
+      <h3 className="text-xl font-heading font-semibold text-ink-900 mb-1">Send a Message</h3>
+      <p className="text-sm text-ink-400 mb-7">Have a question or would like to connect? I’ll get back to you.</p>
+
+      {status === 'success' ? (
+        <div className="flex flex-col items-center text-center py-10">
+          <div className="w-16 h-16 rounded-2xl bg-primary-50 border border-primary-100 flex items-center justify-center mb-5">
+            <CheckCircle className="w-8 h-8 text-primary-600" />
+          </div>
+          <p className="font-heading text-xl font-semibold text-ink-900">Message sent</p>
+          <p className="mt-2 text-sm text-ink-500 max-w-xs">Thank you for reaching out. Dr. Sujith will get back to you shortly.</p>
+          <button
+            onClick={() => setStatus('idle')}
+            className="mt-6 text-sm font-semibold text-primary-700 hover:text-primary-900 transition-colors"
+          >
+            Send another message
+          </button>
+        </div>
+      ) : (
+        <form ref={formRef} className="space-y-6" onSubmit={handleSubmit}>
+          {/* Hidden fields used by the EmailJS template ({{title}} / {{time}}) */}
+          <input type="hidden" name="title" defaultValue="New message from portfolio website" />
+          <input type="hidden" name="time" defaultValue={new Date().toLocaleString('en-IN')} />
+
+          <FloatingField label="Full Name" name="name" type="text" required />
+          <FloatingField label="Email Address" name="email" type="email" required />
+          <FloatingField label="Phone (optional)" name="phone" type="tel" />
+          <FloatingField label="Message" name="message" multiline required />
+
+          {status === 'error' && (
+            <p className="text-sm text-rose-600 font-medium">
+              Sorry, the message couldn’t be sent. Please email{' '}
+              <a href="mailto:dr.ms.sujith@gmail.com" className="underline">dr.ms.sujith@gmail.com</a> directly.
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={status === 'sending'}
+            className="btn-shine w-full py-4 bg-primary-800 text-white font-semibold rounded-xl ring-1 ring-inset ring-accent-300/30 hover:bg-primary-900 hover:shadow-glow transition-all duration-300 hover:-translate-y-0.5 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          >
+            {status === 'sending' ? 'Sending…' : 'Send Message'}
+          </button>
+        </form>
+      )}
     </div>
   );
 }
@@ -931,28 +1014,7 @@ function Contact() {
 
           {/* Message / connect form */}
           <Reveal direction="right" delay={0.2}>
-            <div className="border-beam relative bg-white rounded-3xl p-8 border border-ink-100 shadow-glass-lg">
-              <h3 className="text-xl font-heading font-semibold text-ink-900 mb-1">Send a Message</h3>
-              <p className="text-sm text-ink-400 mb-7">Have a question or would like to connect? I’ll get back to you.</p>
-              <form
-                className="space-y-6"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  alert('Thank you for reaching out! Dr. Sujith will get back to you shortly.');
-                }}
-              >
-                <FloatingField label="Full Name" type="text" required />
-                <FloatingField label="Email Address" type="email" required />
-                <FloatingField label="Phone (optional)" type="tel" />
-                <FloatingField label="Message" multiline required />
-                <button
-                  type="submit"
-                  className="btn-shine w-full py-4 bg-primary-800 text-white font-semibold rounded-xl ring-1 ring-inset ring-accent-300/30 hover:bg-primary-900 hover:shadow-glow transition-all duration-300 hover:-translate-y-0.5 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                >
-                  Send Message
-                </button>
-              </form>
-            </div>
+            <ContactForm />
           </Reveal>
         </div>
       </div>
