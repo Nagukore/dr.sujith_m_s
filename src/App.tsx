@@ -1071,7 +1071,14 @@ function Footer() {
           </div>
         </div>
 
-        <div className="section-divider mt-12 mb-8" />
+        {/* Decorative Samarkan-style name */}
+        <div className="mt-16 text-center">
+          <p className="font-samarkan gold-text text-5xl md:text-6xl lg:text-7xl leading-none select-none">
+            Dr. Sujith M S
+          </p>
+        </div>
+
+        <div className="section-divider mt-14 mb-8" />
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-ink-500">
           <p>&copy; {new Date().getFullYear()} Dr. Sujith M S. All rights reserved.</p>

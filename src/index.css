@@ -45,6 +45,12 @@
   .eyebrow {
     @apply inline-flex items-center gap-2.5 text-[11px] font-semibold tracking-[0.22em] uppercase;
   }
+  /* Samarkan decorative display font (footer name) */
+  .font-samarkan {
+    font-family: 'Samarkan', 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+  }
 }
 
 /* ── Grain / noise overlay for depth ── */
