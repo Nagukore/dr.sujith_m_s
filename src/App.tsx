@@ -1073,7 +1073,7 @@ function Footer() {
 
         {/* Decorative Samarkan-style name */}
         <div className="mt-16 text-center">
-          <p className="font-samarkan gold-text text-5xl md:text-6xl lg:text-7xl leading-none select-none">
+          <p className="font-samarkan gold-shine text-5xl md:text-6xl lg:text-7xl leading-none select-none">
             Dr. Sujith M S
           </p>
         </div>
